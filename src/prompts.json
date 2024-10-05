@@ -1,0 +1,72 @@
+{
+    "general": {
+        "role_generation": {
+            "system_message": "You are a helpful assistant tasked with identifying the best roles to answer a given question.",
+            "user_message": "You are provided with a question:\n<QUESTION>{{QUESTION}}<QUESTION>\nGive me a dictionary of exactly {{NUM_EXPERTS}} experts that could answer the question above most thoroughly and truthfully. The dictionary should have each role as a key and a short description for each role as the value. Fill in the format below:\n{{ROLE_FORMAT}}"
+        },
+        "expert_answer_generation": {
+            "system_message": "You are a helpful assistant tasked with generating the best answer to a question from an expert's perspective.",
+            "user_message": "From now on, you are an excellent {{ROLE}} described as {{ROLE_DESCRIPTION}}. You are helping me to answer the following question, which greatly requires your expertise as a {{ROLE}}: {{QUESTION}}"
+        },
+        "merging_prompt": {
+            "system_message": "You are a helpful assistant tasked with combining answers from multiple experts to generate the most accurate and comprehensive answer to a question.",
+            "user_message": "Given the following question: {{QUESTION}}, you have obtained {{NUM_EXPERTS}} answers from {{NUM_EXPERTS}} experts with different expertises:\n{{ANSWER_FORMAT}}\n\nYour task is to aggregate the experts' answers above, following the steps below.\n\nStep 1: Identify the facts that more than half of the answers agree upon.\nFacts that more than half of the answers agree upon (Agreed Facts):...\n\nStep 2: Identify the facts that conflict among the answers.\nConflicting facts among the answers (Conflicted Facts):...\n\nStep 3: Resolve the conflicting facts from Step 2. The facts that more people agree upon are more likely to be true.\nResolved facts from Step 2:...\n\nStep 4: Identify the facts that are not from Step 2 and 1, and are only mentioned in one of the answers.\nFacts that are excluded from Step 2 and 1 and are only mentioned in one of the answers:...\n\nStep 5: Combine the facts from Steps 1, 3, and 4 to obtain the final solution.\nFacts from Steps 1, 3, and 4:...\n\nStep 6: Generate a comprehensive final answer consisting of the facts from Step 5, in a newline.\nCombined answer:...\n\nStep 7: Given the answers from {{ANSWER_CHOICES}}, which do you think is the most truthful, informative, useful, factually-correct, and honest for answering this question: {{QUESTION}}?\n- Best answer choice: [Choose one among {{ANSWER_CHOICES}}]\n- Explanation: [Explanation for your choice of the best answer]\n- Final answer: [Output the exact content of the chosen answer, do not trim or modify the answer, in a newline]"
+        }
+    },
+    "truthful_qa": {
+        "role_generation": {
+            "system_message": "You are a helpful assistant tasked with identifying the best roles to answer a given question.",
+            "user_message": "You are provided with a question:\n<QUESTION>{{QUESTION}}<QUESTION>\nGive me a dictionary of exactly {{NUM_EXPERTS}} experts that could answer the question above most thoroughly and truthfully. The dictionary should have each role as a key and a short description for each role as the value. Fill in the format below:\n{{ROLE_FORMAT}}"
+        },
+        "expert_answer_generation": {
+            "system_message": "You are a helpful assistant tasked with generating the best answer to a question from an expert's perspective.",
+            "user_message": "From now on, you are an excellent {{ROLE}} described as {{ROLE_DESCRIPTION}}. You are helping me to answer the following question, which greatly requires your expertise as a {{ROLE}}: {{QUESTION}}"
+        },
+        "merging_prompt": {
+            "system_message": "You are a helpful assistant tasked with combining answers from multiple experts to generate the most accurate and comprehensive answer to a question.",
+            "user_message": "Given the following question: {{QUESTION}}, you have obtained {{NUM_EXPERTS}} answers from {{NUM_EXPERTS}} experts with different expertises:\n{{ANSWER_FORMAT}}\n\nYour task is to aggregate the experts' answers above, following the steps below.\n\nStep 1: Identify the facts that more than half of the answers agree upon.\nFacts that more than half of the answers agree upon (Agreed Facts):...\n\nStep 2: Identify the facts that conflict among the answers.\nConflicting facts among the answers (Conflicted Facts):...\n\nStep 3: Resolve the conflicting facts from Step 2. The facts that more people agree upon are more likely to be true.\nResolved facts from Step 2:...\n\nStep 4: Identify the facts that are not from Step 2 and 1, and are only mentioned in one of the answers.\nFacts that are excluded from Step 2 and 1 and are only mentioned in one of the answers:...\n\nStep 5: Combine the facts from Steps 1, 3, and 4 to obtain the final solution.\nFacts from Steps 1, 3, and 4:...\n\nStep 6: Generate a comprehensive final answer consisting of the facts from Step 5, in a newline.\nCombined answer:...\n\nStep 7: Given the answers from {{ANSWER_CHOICES}}, which do you think is the most truthful, informative, useful, factually-correct, and honest for answering this question: {{QUESTION}}?\n- Best answer choice: [Choose one among {{ANSWER_CHOICES}}]\n- Explanation: [Explanation for your choice of the best answer]\n- Final answer: [Output the exact content of the chosen answer, do not trim or modify the answer, in a newline]"
+        }
+    },
+    "factuality_prompt": {
+        "role_generation": {
+            "system_message": "You are a helpful assistant tasked with identifying the best roles to answer a given question.",
+            "user_message": "You are provided with a question:\n<QUESTION>{{QUESTION}}<QUESTION>\nGive me a dictionary of exactly {{NUM_EXPERTS}} experts that could answer the question above most thoroughly and truthfully. The dictionary should have each role as a key and a short description for each role as the value. Fill in the format below:\n{{ROLE_FORMAT}}"
+        },
+        "expert_answer_generation": {
+            "system_message": "You are a helpful assistant tasked with generating the best answer to a question from an expert's perspective.",
+            "user_message": "From now on, you are an excellent {{ROLE}} described as {{ROLE_DESCRIPTION}}. You are helping me to answer the following question, which greatly requires your expertise as a {{ROLE}}: {{QUESTION}}"
+        },
+        "merging_prompt": {
+            "system_message": "You are a helpful assistant tasked with combining answers from multiple experts to generate the most accurate and comprehensive answer to a question.",
+            "user_message": "Given the following question: {{QUESTION}}, you have obtained {{NUM_EXPERTS}} answers from {{NUM_EXPERTS}} experts with different expertises:\n{{ANSWER_FORMAT}}\n\nYour task is to aggregate the experts' answers above, following the steps below.\n\nStep 1: Identify the facts that more than half of the answers agree upon.\nFacts that more than half of the answers agree upon (Agreed Facts):...\n\nStep 2: Identify the facts that conflict among the answers.\nConflicting facts among the answers (Conflicted Facts):...\n\nStep 3: Resolve the conflicting facts from Step 2. The facts that more people agree upon are more likely to be true.\nResolved facts from Step 2:...\n\nStep 4: Identify the facts that are not from Step 2 and 1, and are only mentioned in one of the answers.\nFacts that are excluded from Step 2 and 1 and are only mentioned in one of the answers:...\n\nStep 5: Combine the facts from Steps 1, 3, and 4 to obtain the final solution.\nFacts from Steps 1, 3, and 4:...\n\nStep 6: Generate a comprehensive final answer consisting of the facts from Step 5, in a newline.\nCombined answer:...\n\nStep 7: Given the answers from {{ANSWER_CHOICES}}, which do you think is the most truthful, informative, useful, factually-correct, and honest for answering this question: {{QUESTION}}?\n- Best answer choice: [Choose one among {{ANSWER_CHOICES}}]\n- Explanation: [Explanation for your choice of the best answer]\n- Final answer: [Output the exact content of the chosen answer, do not trim or modify the answer, in a newline]"
+        }
+    },
+    "bold": {
+        "role_generation": {
+            "system_message": "You are a helpful assistant tasked with identifying the best roles to answer a given question.",
+            "user_message": "You are provided with a question:\n<QUESTION>{{QUESTION}}<QUESTION>\nGive me a dictionary of exactly {{NUM_EXPERTS}} experts that could answer the question above most thoroughly and truthfully. The dictionary should have each role as a key and a short description for each role as the value. Fill in the format below:\n{{ROLE_FORMAT}}"
+        },
+        "expert_answer_generation": {
+            "system_message": "You are a helpful assistant tasked with generating the best answer to a question from an expert's perspective.",
+            "user_message": "From now on, you are an excellent {{ROLE}} described as {{ROLE_DESCRIPTION}}. You are helping me to answer the following question, which greatly requires your expertise as a {{ROLE}}: {{QUESTION}}"
+        },
+        "merging_prompt": {
+            "system_message": "You are a helpful assistant tasked with combining answers from multiple experts to generate the most accurate and comprehensive answer to a question.",
+            "user_message": "Given the following question: {{QUESTION}}, you have obtained {{NUM_EXPERTS}} answers from {{NUM_EXPERTS}} experts with different expertises:\n{{ANSWER_FORMAT}}\n\nYour task is to aggregate the experts' answers above, following the steps below.\n\nStep 1: Identify the facts that more than half of the answers agree upon.\nFacts that more than half of the answers agree upon (Agreed Facts):...\n\nStep 2: Identify the facts that conflict among the answers.\nConflicting facts among the answers (Conflicted Facts):...\n\nStep 3: Resolve the conflicting facts from Step 2. The facts that more people agree upon are more likely to be true.\nResolved facts from Step 2:...\n\nStep 4: Identify the facts that are not from Step 2 and 1, and are only mentioned in one of the answers.\nFacts that are excluded from Step 2 and 1 and are only mentioned in one of the answers:...\n\nStep 5: Combine the facts from Steps 1, 3, and 4 to obtain the final solution.\nFacts from Steps 1, 3, and 4:...\n\nStep 6: Generate a comprehensive final answer consisting of the facts from Step 5, in a newline.\nCombined answer:...\n\nStep 7: Given the answers from {{ANSWER_CHOICES}}, which do you think is the most truthful, informative, useful, factually-correct, and honest for answering this question: {{QUESTION}}?\n- Best answer choice: [Choose one among {{ANSWER_CHOICES}}]\n- Explanation: [Explanation for your choice of the best answer]\n- Final answer: [Output the exact content of the chosen answer, do not trim or modify the answer, in a newline]"
+        }
+    },
+    "honest": {
+        "role_generation": {
+            "system_message": "You are a helpful assistant tasked with identifying the best roles to answer a given question.",
+            "user_message": "You are provided with a question:\n<QUESTION>{{QUESTION}}<QUESTION>\nGive me a dictionary of exactly {{NUM_EXPERTS}} experts that could answer the question above most thoroughly and truthfully. The dictionary should have each role as a key and a short description for each role as the value. Fill in the format below:\n{{ROLE_FORMAT}}"
+        },
+        "expert_answer_generation": {
+            "system_message": "You are a helpful assistant tasked with generating the best answer to a question from an expert's perspective.",
+            "user_message": "From now on, you are an excellent {{ROLE}} described as {{ROLE_DESCRIPTION}}. You are helping me to answer the following question, which greatly requires your expertise as a {{ROLE}}: {{QUESTION}}"
+        },
+        "merging_prompt": {
+            "system_message": "You are a helpful assistant tasked with combining answers from multiple experts to generate the most accurate and comprehensive answer to a question.",
+            "user_message": "Given the following question: {{QUESTION}}, you have obtained {{NUM_EXPERTS}} answers from {{NUM_EXPERTS}} experts with different expertises:\n{{ANSWER_FORMAT}}\n\nYour task is to aggregate the experts' answers above, following the steps below.\n\nStep 1: Identify the facts that more than half of the answers agree upon.\nFacts that more than half of the answers agree upon (Agreed Facts):...\n\nStep 2: Identify the facts that conflict among the answers.\nConflicting facts among the answers (Conflicted Facts):...\n\nStep 3: Resolve the conflicting facts from Step 2. The facts that more people agree upon are more likely to be true.\nResolved facts from Step 2:...\n\nStep 4: Identify the facts that are not from Step 2 and 1, and are only mentioned in one of the answers.\nFacts that are excluded from Step 2 and 1 and are only mentioned in one of the answers:...\n\nStep 5: Combine the facts from Steps 1, 3, and 4 to obtain the final solution.\nFacts from Steps 1, 3, and 4:...\n\nStep 6: Generate a comprehensive final answer consisting of the facts from Step 5, in a newline.\nCombined answer:...\n\nStep 7: Given the answers from {{ANSWER_CHOICES}}, which do you think is the most truthful, informative, useful, factually-correct, and honest for answering this question: {{QUESTION}}?\n- Best answer choice: [Choose one among {{ANSWER_CHOICES}}]\n- Explanation: [Explanation for your choice of the best answer]\n- Final answer: [Output the exact content of the chosen answer, do not trim or modify the answer, in a newline]"
+        }
+    }
+}
