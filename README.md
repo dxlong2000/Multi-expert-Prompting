@@ -1,8 +1,33 @@
 
-# Multi-expert Prompting Improves Reliability, Safety, and Usefulness of Large Language Models
+[![arXiv](https://img.shields.io/badge/arXiv-2411.00492-b31b1b.svg)](https://arxiv.org/abs/2411.00492)
 
-This repository contains the code and resources to implement **Multi-expert Prompting**, an innovative method to improve the generation quality of Large Language Models (LLMs) by simulating multiple expert perspectives, aggregating their responses, and selecting the most accurate and useful answers. Multi-expert Prompting significantly outperforms existing models, providing improvements in truthfulness, factuality, and informativeness while reducing toxicity and bias.
 
+<div align="left">
+
+<h1>[EMNLP 2024]  Multi-expert Prompting Improves Reliability, Safety, and Usefulness of Large Language Models</h1>
+<!-- <div>
+    <a href='https://dxlong2000.github.io/' target='_blank'>Do Xuan Long</a><sup>1,2</sup>&emsp;
+    <a>Duong Ngoc Yen</a><sup>3</sup>&emsp;
+    <a href='https://tuanluu.github.io/' target='_blank'>Luu Anh Tuan</a><sup>3</sup>&emsp;
+    <a href='https://ml.comp.nus.edu.sg/#members' target='_blank'>Kenji Kawaguchi</a><sup>1</sup>&emsp;
+    <a href='https://www.comp.nus.edu.sg/~kanmy/' target='_blank'>Min-Yen Kan</a><sup>1</sup>&emsp;
+    <a href='https://sites.google.com/site/nancyfchen/home' target='_blank'>Nancy F. Chen</a><sup>2</sup>&emsp;
+</div>
+<div>
+    <sup>1</sup>National University of Singapore,&emsp;<br>
+    <sup>2</sup>Institute for Infocomm Research (I2R), A*STAR,&emsp;<br>
+    <sup>3</sup>Nanyang Technological University&emsp;
+</div>
+</div> -->
+
+
+
+This repository contains the code for the paper "[Multi-expert Prompting Improves Reliability, Safety, and Usefulness of Large Language Models](https://arxiv.org/abs/2411.00492)". Below is its workflow.
+
+<img src="images/overview.png" width="95%"/>
+
+<!-- , an innovative method to improve the generation quality of Large Language Models (LLMs) by simulating multiple expert perspectives, aggregating their responses, and selecting the most accurate and useful answers. Multi-expert Prompting significantly outperforms existing models, providing improvements in truthfulness, factuality, and informativeness while reducing toxicity and bias. -->
+<!-- 
 ## Paper
 
 - **Title**: Multi-expert Prompting Improves Reliability, Safety, and Usefulness of Large Language Models
@@ -12,17 +37,69 @@ This repository contains the code and resources to implement **Multi-expert Prom
   - Institute for Infocomm Research (I2R), A*STAR
   - Nanyang Technological University (NTU)
 - **Published at**: [Link to the paper]
-- **Abstract**: We present Multi-expert Prompting, a novel enhancement of ExpertPrompting (Xu et al., 2023), designed to improve the large language model (LLM) generation. Specifically, it guides an LLM to fulfill an input instruction by simulating multiple experts, aggregating their responses, and selecting the best among individual and aggregated responses. This process is performed in a single chain of thoughts through our seven carefully designed subtasks derived from the Nominal Group Technique (Ven and Delbecq, 1974), a well-established decision-making framework. Our evaluations demonstrate that Multi-expert Prompting significantly outperforms ExpertPrompting and comparable baselines in enhancing the truthfulness, factuality, informativeness, and usefulness of responses while reducing toxicity and hurtfulness. It further achieves state-of-the-art truthfulness by outperforming the best baseline by 8.69% with ChatGPT. Multi-expert Prompting is efficient, explainable, and highly adaptable to diverse scenarios, eliminating the need for manual prompt construction.
+- **Abstract**: We present Multi-expert Prompting, a novel enhancement of ExpertPrompting (Xu et al., 2023), designed to improve the large language model (LLM) generation. Specifically, it guides an LLM to fulfill an input instruction by simulating multiple experts, aggregating their responses, and selecting the best among individual and aggregated responses. This process is performed in a single chain of thoughts through our seven carefully designed subtasks derived from the Nominal Group Technique (Ven and Delbecq, 1974), a well-established decision-making framework. Our evaluations demonstrate that Multi-expert Prompting significantly outperforms ExpertPrompting and comparable baselines in enhancing the truthfulness, factuality, informativeness, and usefulness of responses while reducing toxicity and hurtfulness. It further achieves state-of-the-art truthfulness by outperforming the best baseline by 8.69% with ChatGPT. Multi-expert Prompting is efficient, explainable, and highly adaptable to diverse scenarios, eliminating the need for manual prompt construction. -->
 
-<div align="center">
-    <img width="80%" alt="MAD" src="images/overview.png" />
-    <p class="image-caption">Figure 1:  Overview of Multi-expert Prompting: (1) Experts & responses generation and (2) Aggregating expert responses. Given an input instruction, the first step targets generating expert identities that best fulfill the instruction and expert responses, while the second step focuses on aggregating and selecting the best from individual and combined expert responses..</p>
-</div>
-<image>
+## I. Quick Start with Interactive Mode
 
-## Main Results
+You can follow the steps below to quickly get up and running with Multi-expert Prompting.
 
-The table below summarizes the performance of Multi-expert Prompting compared to several strong baselines:
+1. In a conda env with PyTorch / CUDA available clone and download this repository.
+
+2. Create and activate a new virtual environment.
+
+    ```bash
+    conda create -n mep python=3.11
+    conda activate mep
+    ```
+
+3. In the top-level directory run:
+    ```bash
+    pip install -r requirements.txt
+    ```
+4. To run [OpenAI models](https://platform.openai.com/docs/models), you need to export your API key:
+    ```
+    export OPENAI_API_KEY=your_api_key_here
+    ```
+4. Once you got everything installed correctly, use the following command:
+
+    ```bash
+    python src/interactive.py --model=[model] --num_experts=[number-of-experts] --temperature=[temperaure] [--verbose]
+    ```
+
+    Currently, we support the following open-source ([Mistral](https://huggingface.co/mistralai), [Meta-llama](https://huggingface.co/meta-llama)) and proprietary models ([OpenAI models](https://platform.openai.com/docs/models)):
+      - --model: `gpt-4o`, `chatgpt-4o-latest`, `gpt-4o-2024-08-06`, `gpt-3.5-turbo`, `mistralai/Mistral-7B-Instruct-v0.2`, `meta-llama/Llama-3.1-8B-Instruct`.
+      - --num_experts: any number. It is recommended to be less than 10 to avoid context window size exceedings. 
+      - --temperature: often between 0 and 1.
+
+    Example with `gpt-3.5-turbo` with 3 experts and temperature equal 0:
+
+    ```
+    python src/interactive.py --model="gpt-3.5-turbo" --num_experts=3 --temperature=0 --verbose
+    ```
+
+## II. Benchmark Experiment and Evaluation Scripts
+
+**Benchmark experiments:** *Benchmarking data and scripts are coming soon! Alternatively, you can shortly customize `src/interactive.py` to run your own benchmark experiments.*
+
+**Benchmark evaluations:** We share our outputs in the folder: `./evaluation/results`. To obtain the evaluation results, perform the following steps:
+
+1.  Navigate to the directory `metrics`.
+
+    ```
+    cd Multi-expert-Prompting/evaluation/metrics
+    ```
+2. Run the scripts there to compute metrics:
+    ```
+    python BOLD_compute.py
+    python TOXICITY_compute.py
+    python HONEST_compute.py
+    ```
+
+    *Note: Evaluation instructions for TruthfulQA, FactualityPrompt and ExpertQA are coming soon!*
+
+## III. Main Results
+
+The table below summarizes the performance of Multi-expert Prompting compared to several strong baselines. The details of our outputs are shared in the folder: `./evaluation/results`.
 
 | **Mistral-7B-Inst. v0.2** | TruthfulQA ↑ | FactualityPrompt ↓ | BOLD ↓  | HONEST ↓ |
 |---------------------------|--------------|--------------------|---------|----------|
@@ -46,52 +123,27 @@ The table below summarizes the performance of Multi-expert Prompting compared to
 
 **Key**: ↑ indicates higher is better; ↓ indicates lower is better.
 
-## Setup
+## IV. Issues
+Please report any software “bug”, or other problems with the models through one of the following means:
 
-### Create new virtual environment
+- This Github repo.
+- Do Xuan Long via xuanlong.do@u.nus.edu.
 
-```bash
-conda create -n mep python=3.11
-```
+## V. Citation and Acknowledgements
 
-### Requirements
-
-To install the dependencies, run:
-
-```bash
-pip install -r requirements.txt
-```
-
-### Usage
-
-To run Multi-expert Prompting interactive testing, use the following command:
-
-```bash
-python src/interactive.py --model=[model] --num_experts=[number-of-experts] --temperature=[temperaure] [--verbose]
-```
-
-Example with `gpt-3.5-turbo` with 3 experts and 0 temperature, run this command:
-
-```bash
-export CHATGPT_API_TOKEN=<your-chatgpt-api-token>
-python src/interactive.py --model="gpt-3.5-turbo" --num_experts=3 --temperature=0 --verbose
-```
-
-Example with `mistralai/Mistral-7B-Instruct-v0.2` with 5 experts and 0.2 temperature, run this command:
-
-```bash
-python src/interactive.py --model="mistralai/Mistral-7B-Instruct-v0.2" --num_experts=5 --temperature=0.2 --verbose
-```
-
-## Citation
-
-If you find this repository helpful in your research, please cite:
+If you find this repository helpful in your research, we appreciate your ⭐ and the paper citation:
 
 ```
-@inproceedings{do2024multiexpert,
-  title={Multi-expert Prompting Improves Reliability, Safety, and Usefulness of Large Language Models},
-  author={Do Xuan Long, Duong Ngoc Yen, Luu Anh Tuan, Kenji Kawaguchi, Min-Yen Kan, Nancy F. Chen},
-  booktitle={Proceedings of [Conference]},
-  year={2024}
+@misc{long2024multiexpertpromptingimprovesreliability,
+      title={Multi-expert Prompting Improves Reliability, Safety, and Usefulness of Large Language Models}, 
+      author={Do Xuan Long and Duong Ngoc Yen and Anh Tuan Luu and Kenji Kawaguchi and Min-Yen Kan and Nancy F. Chen},
+      year={2024},
+      eprint={2411.00492},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2411.00492}, 
 }
 ```
+
+We would like to acknowledge the [Huggingface evaluate](https://github.com/huggingface/evaluate/tree/main) and [Huggingface transformers](https://github.com/huggingface/transformers).
+

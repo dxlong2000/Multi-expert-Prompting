@@ -89,8 +89,10 @@ class MEP:
         return all_answers
 
     def merge_expert_answers(self, question, all_answers, model, tokenizer, device):
+        experts_answers_string = "\n\n###\n\n".join([f"Expert {idx+1}: " + all_answers[idx][0] + "\n" + f"Answer {idx+1}: " + all_answers[idx][1] for idx in range(len(all_answers))])
+        
         system_message = self.prompts["merging_prompt"]["system_message"]
-        merging_prompt = self.prompts["merging_prompt"]["user_message"].replace("{{QUESTION}}", question).replace("{{NUM_EXPERTS}}", str(self.num_experts))    
+        merging_prompt = self.prompts["merging_prompt"]["user_message"].replace("{{QUESTION}}", question).replace("{{NUM_EXPERTS}}", str(self.num_experts)).replace("{{ANSWER_FORMAT}}", str(experts_answers_string)) 
         merging_prompt = merging_prompt.replace(r"{{ANSWER_CHOICES}}", self.answer_choices)
         if self.verbose:
             print(f"\n\n>>> System Message: {system_message}")
@@ -103,7 +105,7 @@ class MEP:
                     model, tokenizer, device,
                     system_message,
                     merging_prompt,
-                    self.args.model, self.api_token, self.max_retries, self.retry_delay, self.temperature, self.num_experts*self.max_tokens
+                    self.args.model, self.api_token, self.max_retries, self.retry_delay, self.temperature, self.max_tokens
                 )
                 try:
                     final_answer = final_raw_answer.split("Final answer:")[1].strip()

@@ -40,13 +40,13 @@ if __name__ == "__main__":
     parser.add_argument("--max_retries", type=int, default=10, help="Maximum number of retries for API calls")
     parser.add_argument("--retry_delay", type=int, default=2, help="Delay between retries in seconds")
     parser.add_argument("--temperature", type=float, default=0.1, help="Temperature for the model")
-    parser.add_argument("--max_tokens", type=int, default=1500, help="Maximum number of tokens for the model")
+    parser.add_argument("--max_tokens", type=int, default=4096, help="Maximum number of tokens for the model")
     parser.add_argument("--verbose", action="store_true", help="Print prompts and answers")
     args = parser.parse_args()
 
-    args.api_token = os.getenv('CHATGPT_API_TOKEN', "NA")
+    args.api_token = os.getenv('OPENAI_API_KEY', "NA")
     if not args.api_token:
-        raise ValueError("API token is not set. Please set the CHATGPT_API_TOKEN environment variable.")
+        raise ValueError("API token is not set. Please set the OPENAI_API_KEY environment variable.")
 
     model, tokenizer, device = load_model_and_checkpoints(args)
 

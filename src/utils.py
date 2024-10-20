@@ -18,7 +18,7 @@ def get_model_answer(model, tokenizer, device, model_name, system_prompt, user_p
     if isinstance(model_name, int):
         model_name = str(model_name)
 
-    if model_name.startswith("gpt"):
+    if model_name.startswith("gpt") or model_name.startswith("chatgpt"):
         openai.api_key = api_token
         response = openai.chat.completions.create(
             model=model_name,
@@ -58,6 +58,31 @@ def get_model_answer(model, tokenizer, device, model_name, system_prompt, user_p
         assistant_message = tokenizer.batch_decode(generated_ids)[0]
         assistant_message = assistant_message.split("[/INST]")[1].strip()
         assistant_message = assistant_message.replace("</s>", "")
+        return assistant_message
+    elif model_name.startswith("meta-llama"):
+        if temperature == 0:
+            temperature = 0.1
+        messages = [
+            {"role": "user", "content": user_prompt},
+        ]
+        encodeds = tokenizer.apply_chat_template(messages, return_tensors="pt")
+        model_inputs = encodeds.to(device)
+        
+        if tokenizer.pad_token_id is None:
+            tokenizer.pad_token_id = tokenizer.eos_token_id
+        
+        attention_mask = model_inputs.ne(tokenizer.pad_token_id).long()
+        
+        generated_ids = model.generate(
+            model_inputs,
+            max_new_tokens=max_tokens,
+            do_sample=True,
+            temperature=temperature,
+            pad_token_id=tokenizer.pad_token_id,
+            attention_mask=attention_mask  # Pass the attention_mask here
+        )
+        assistant_message = tokenizer.batch_decode(generated_ids)[0]
+        assistant_message = assistant_message.split("<|end_header_id|>\n")[-1].split("<|eot_id|>")[0].strip()
         return assistant_message
     else:
         print(model_name)

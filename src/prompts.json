@@ -6,7 +6,7 @@
         },
         "expert_answer_generation": {
             "system_message": "You are a helpful assistant tasked with generating the best answer to a question from an expert's perspective.",
-            "user_message": "From now on, you are an excellent {{ROLE}} described as {{ROLE_DESCRIPTION}}. You are helping me to answer the following question, which greatly requires your expertise as a {{ROLE}}: {{QUESTION}}"
+            "user_message": "From now on, you are an excellent {{ROLE}} described as {{ROLE_DESCRIPTION}} You are helping me to answer the following question, which greatly requires your expertise as a {{ROLE}}: {{QUESTION}}. The answer must not contain more than 500 words."
         },
         "merging_prompt": {
             "system_message": "You are a helpful assistant tasked with combining answers from multiple experts to generate the most accurate and comprehensive answer to a question.",
@@ -20,7 +20,7 @@
         },
         "expert_answer_generation": {
             "system_message": "You are a helpful assistant tasked with generating the best answer to a question from an expert's perspective.",
-            "user_message": "From now on, you are an excellent {{ROLE}} described as {{ROLE_DESCRIPTION}}. You are helping me to answer the following question, which greatly requires your expertise as a {{ROLE}}: {{QUESTION}}"
+            "user_message": "From now on, you are an excellent {{ROLE}} described as {{ROLE_DESCRIPTION}} You are helping me to answer the following question, which greatly requires your expertise as a {{ROLE}}: {{QUESTION}}. The answer must not contain more than 500 words."
         },
         "merging_prompt": {
             "system_message": "You are a helpful assistant tasked with combining answers from multiple experts to generate the most accurate and comprehensive answer to a question.",
@@ -34,7 +34,7 @@
         },
         "expert_answer_generation": {
             "system_message": "You are a helpful assistant tasked with generating the best answer to a question from an expert's perspective.",
-            "user_message": "From now on, you are an excellent {{ROLE}} described as {{ROLE_DESCRIPTION}}. You are helping me to answer the following question, which greatly requires your expertise as a {{ROLE}}: {{QUESTION}}"
+            "user_message": "From now on, you are an excellent {{ROLE}} described as {{ROLE_DESCRIPTION}} You are helping me to answer the following question, which greatly requires your expertise as a {{ROLE}}: {{QUESTION}}. The answer must not contain more than 500 words."
         },
         "merging_prompt": {
             "system_message": "You are a helpful assistant tasked with combining answers from multiple experts to generate the most accurate and comprehensive answer to a question.",
@@ -48,7 +48,7 @@
         },
         "expert_answer_generation": {
             "system_message": "You are a helpful assistant tasked with generating the best answer to a question from an expert's perspective.",
-            "user_message": "From now on, you are an excellent {{ROLE}} described as {{ROLE_DESCRIPTION}}. You are helping me to answer the following question, which greatly requires your expertise as a {{ROLE}}: {{QUESTION}}"
+            "user_message": "From now on, you are an excellent {{ROLE}} described as {{ROLE_DESCRIPTION}} You are helping me to answer the following question, which greatly requires your expertise as a {{ROLE}}: {{QUESTION}}. The answer must not contain more than 500 words."
         },
         "merging_prompt": {
             "system_message": "You are a helpful assistant tasked with combining answers from multiple experts to generate the most accurate and comprehensive answer to a question.",
@@ -62,7 +62,7 @@
         },
         "expert_answer_generation": {
             "system_message": "You are a helpful assistant tasked with generating the best answer to a question from an expert's perspective.",
-            "user_message": "From now on, you are an excellent {{ROLE}} described as {{ROLE_DESCRIPTION}}. You are helping me to answer the following question, which greatly requires your expertise as a {{ROLE}}: {{QUESTION}}"
+            "user_message": "From now on, you are an excellent {{ROLE}} described as {{ROLE_DESCRIPTION}} You are helping me to answer the following question, which greatly requires your expertise as a {{ROLE}}: {{QUESTION}}. The answer must not contain more than 500 words."
         },
         "merging_prompt": {
             "system_message": "You are a helpful assistant tasked with combining answers from multiple experts to generate the most accurate and comprehensive answer to a question.",
