@@ -1,66 +1,62 @@
+# [EMNLP 2024] Multi-expert Prompting Improves Reliability, Safety, and Usefulness of Large Language Models
 
 [![arXiv](https://img.shields.io/badge/arXiv-2411.00492-b31b1b.svg)](https://arxiv.org/abs/2411.00492)
-
-
-<div align="left">
-
-<h1>[EMNLP 2024]  Multi-expert Prompting Improves Reliability, Safety, and Usefulness of Large Language Models</h1>
-<!-- <div>
-    <a href='https://dxlong2000.github.io/' target='_blank'>Do Xuan Long</a><sup>1,2</sup>&emsp;
-    <a>Duong Ngoc Yen</a><sup>3</sup>&emsp;
-    <a href='https://tuanluu.github.io/' target='_blank'>Luu Anh Tuan</a><sup>3</sup>&emsp;
-    <a href='https://ml.comp.nus.edu.sg/#members' target='_blank'>Kenji Kawaguchi</a><sup>1</sup>&emsp;
-    <a href='https://www.comp.nus.edu.sg/~kanmy/' target='_blank'>Min-Yen Kan</a><sup>1</sup>&emsp;
-    <a href='https://sites.google.com/site/nancyfchen/home' target='_blank'>Nancy F. Chen</a><sup>2</sup>&emsp;
-</div>
-<div>
-    <sup>1</sup>National University of Singapore,&emsp;<br>
-    <sup>2</sup>Institute for Infocomm Research (I2R), A*STAR,&emsp;<br>
-    <sup>3</sup>Nanyang Technological University&emsp;
-</div>
-</div> -->
-
-
 
 This repository contains the code for the paper "[Multi-expert Prompting Improves Reliability, Safety, and Usefulness of Large Language Models](https://arxiv.org/abs/2411.00492)". Below is its workflow.
 
 <img src="images/overview.png" width="95%"/>
 
-<!-- , an innovative method to improve the generation quality of Large Language Models (LLMs) by simulating multiple expert perspectives, aggregating their responses, and selecting the most accurate and useful answers. Multi-expert Prompting significantly outperforms existing models, providing improvements in truthfulness, factuality, and informativeness while reducing toxicity and bias. -->
-<!-- 
-## Paper
+## Table of Contents
 
-- **Title**: Multi-expert Prompting Improves Reliability, Safety, and Usefulness of Large Language Models
-- **Authors**: Do Xuan Long, Duong Ngoc Yen, Luu Anh Tuan, Kenji Kawaguchi, Min-Yen Kan, Nancy F. Chen
-- **Institutions**: 
-  - National University of Singapore (NUS)
-  - Institute for Infocomm Research (I2R), A*STAR
-  - Nanyang Technological University (NTU)
-- **Published at**: [Link to the paper]
-- **Abstract**: We present Multi-expert Prompting, a novel enhancement of ExpertPrompting (Xu et al., 2023), designed to improve the large language model (LLM) generation. Specifically, it guides an LLM to fulfill an input instruction by simulating multiple experts, aggregating their responses, and selecting the best among individual and aggregated responses. This process is performed in a single chain of thoughts through our seven carefully designed subtasks derived from the Nominal Group Technique (Ven and Delbecq, 1974), a well-established decision-making framework. Our evaluations demonstrate that Multi-expert Prompting significantly outperforms ExpertPrompting and comparable baselines in enhancing the truthfulness, factuality, informativeness, and usefulness of responses while reducing toxicity and hurtfulness. It further achieves state-of-the-art truthfulness by outperforming the best baseline by 8.69% with ChatGPT. Multi-expert Prompting is efficient, explainable, and highly adaptable to diverse scenarios, eliminating the need for manual prompt construction. -->
+- [I. Quick Start with Interactive Mode](#i-quick-start-with-interactive-mode)
+- [II. Benchmark Experiment and Evaluation Scripts](#ii-benchmark-experiment-and-evaluation-scripts)
+  - [Running the TruthfulQA Benchmark](#running-the-truthfulqa-benchmark)
+  - [Running the FactualityPrompt Benchmark](#running-the-factualityprompt-benchmark)
+  - [Running the BOLD Benchmark](#running-the-bold-benchmark)
+  - [Running the HONEST Benchmark](#running-the-honest-benchmark)
+- [III. Main Results](#iii-main-results)
+- [IV. Issues](#iv-issues)
+- [V. Citation and Acknowledgements](#v-citation-and-acknowledgements)
+- [Supplementary: Fine-tuning the Judge Model for the TruthfulQA Benchmark](#supplementary-fine-tuning-the-judge-model-for-the-truthfulqa-benchmark)
+- [Supplementary: Obtaining Data and Evaluating the FactualityPrompt Benchmark](#supplementary-obtaining-data-and-evaluating-the-factualityprompt-benchmark)
 
 ## I. Quick Start with Interactive Mode
 
 You can follow the steps below to quickly get up and running with Multi-expert Prompting.
 
-1. In a conda env with PyTorch / CUDA available clone and download this repository.
+1. **Clone and Download the Repository**
 
-2. Create and activate a new virtual environment.
+   ```bash
+   git clone https://github.com/yourusername/Multi-expert-Prompting.git
+   cd Multi-expert-Prompting
+   ```
 
-    ```bash
-    conda create -n mep python=3.11
-    conda activate mep
-    ```
+2. **Create and Activate a New Virtual Environment**
 
-3. In the top-level directory run:
-    ```bash
-    pip install -r requirements.txt
-    ```
-4. To run [OpenAI models](https://platform.openai.com/docs/models), you need to export your API key:
-    ```
-    export OPENAI_API_KEY=your_api_key_here
-    ```
-4. Once you got everything installed correctly, use the following command:
+   ```bash
+   conda create -n mep python=3.11
+   conda activate mep
+   ```
+
+3. **Install Dependencies**
+
+   In the top-level directory, run:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Set Up OpenAI API Key (if using OpenAI models)**
+
+   To run [OpenAI models](https://platform.openai.com/docs/models), you need to export your API key:
+
+   ```bash
+   export OPENAI_API_KEY=your_api_key_here
+   ```
+
+5. **Run the Interactive Script**
+
+   Use the following command:
 
     ```bash
     python src/interactive.py --model=[model] --num_experts=[number-of-experts] --temperature=[temperaure] [--verbose]
@@ -79,23 +75,96 @@ You can follow the steps below to quickly get up and running with Multi-expert P
 
 ## II. Benchmark Experiment and Evaluation Scripts
 
-**Benchmark experiments:** *Benchmarking data and scripts are coming soon! Alternatively, you can shortly customize `src/interactive.py` to run your own benchmark experiments.*
+### Running the TruthfulQA Benchmark
 
-**Benchmark evaluations:** We share our outputs in the folder: `./evaluation/results`. To obtain the evaluation results, perform the following steps:
+To evaluate truthfulness using the TruthfulQA benchmark, follow these steps:
 
-1.  Navigate to the directory `metrics`.
+#### Command
 
-    ```
-    cd Multi-expert-Prompting/evaluation/metrics
-    ```
-2. Run the scripts there to compute metrics:
-    ```
-    python BOLD_compute.py
-    python TOXICITY_compute.py
-    python HONEST_compute.py
+1. **Generate results using Multi-Expert Prompting**:
+    ```bash
+    python evaluation/benchmark/truthfulqa.py \
+      --model [model] \
+      --api_token [your-api-token] \
+      --num_experts 3 \
+      --verbose
     ```
 
-    *Note: Evaluation instructions for TruthfulQA, FactualityPrompt and ExpertQA are coming soon!*
+2. **Evaluate results using the GPT-based judge**:
+    ```bash
+    python evaluation/metrics/truthfulqa_compute.py \
+      --input_file [file obtained from above step] \
+      --output_file [path to save evaluated results] \
+      --judge_model [fine-tuned-model-name] \
+      --api_token [your-api-token] \
+      --run_judge
+    ```
+
+### Running the FactualityPrompt Benchmark
+
+You need to obtain data from [FactualityPrompt evaluation guide](https://github.com/nayeon7lee/FactualityPrompt) and put into respective file.
+To evaluate factual correctness using the FactualityPrompt benchmark:
+
+#### Command
+
+1. **Generate results using Multi-Expert Prompting**:
+    ```bash
+    python evaluation/benchmark/factualityprompt.py \
+      --model [model] \
+      --num_experts 3 \
+      --prompt_type factual_250 \
+      --api_token [your-api-key] \
+      --verbose
+    ```
+**Note:** Replace `factual_250` with `nonfactual_250` for processing the non-factual subset in FactualityPrompt.
+
+
+2. **Evaluate results**:  
+   Refer to the official [FactualityPrompt evaluation guide](https://github.com/nayeon7lee/FactualityPrompt) for detailed instructions. Additionally, see the [Supplementary: Obtaining Data and Evaluating the FactualityPrompt Benchmark](#supplementary-obtaining-data-and-evaluating-the-factualityprompt-benchmark) section in this repository for a step-by-step walkthrough tailored to this project.
+
+### Running the BOLD (Toxicity) Benchmark
+
+#### Command
+
+1. **Generate results using Multi-Expert Prompting**:
+    ```bash
+    python evaluation/benchmark/bold.py \
+      --model [model] \
+      --num_experts 3 \
+      --api_token [your-api-key] \
+      --verbose
+    ```
+
+2. **Compute toxicity scores**:
+    ```bash
+    python evaluation/metrics/toxicity_compute.py \
+      --input_file [file obtained from above step] \
+      --output_file [path to save computed toxicity scores]
+    ```
+
+### Running the HONEST Benchmark
+
+To evaluate fairness using the HONEST benchmark:
+
+#### Command
+
+1. **Generate results using Multi-Expert Prompting**:
+    ```bash
+    python evaluation/benchmark/honest.py \
+      --model [model] \
+      --num_experts 3 \
+      --api_token [your-api-key] \
+      --verbose
+    ```
+
+2. **Compute HONEST scores**:
+    ```bash
+    python evaluation/metrics/HONEST_compute.py \
+      --input_file [file obtained from above step] \
+      --output_file [path to save computed HONEST scores]
+    ```
+
+---
 
 ## III. Main Results
 
@@ -126,8 +195,10 @@ The table below summarizes the performance of Multi-expert Prompting compared to
 ## IV. Issues
 Please report any software “bug”, or other problems with the models through one of the following means:
 
-- This Github repo.
-- Do Xuan Long via xuanlong.do@u.nus.edu.
+- GitHub [Issue Tracker](https://github.com/yourusername/Multi-expert-Prompting/issues).
+- Email: [Do Xuan Long](mailto:xuanlong.do@u.nus.edu).
+
+---
 
 ## V. Citation and Acknowledgements
 
@@ -147,3 +218,205 @@ If you find this repository helpful in your research, we appreciate your ⭐ and
 
 We would like to acknowledge the [Huggingface evaluate](https://github.com/huggingface/evaluate/tree/main) and [Huggingface transformers](https://github.com/huggingface/transformers).
 
+
+## Supplementary: Fine-tuning the Judge Model for the TruthfulQA Benchmark
+
+This guide provides step-by-step instructions on how to fine-tune a GPT-based judge model using the TruthfulQA dataset. After fine-tuning and obtaining the judge model, you will be able to evaluate the truthfulness of answers generated by language models. Instructions on how to run the TruthfulQA benchmark using the provided codebase are included in the [Running the TruthfulQA Benchmark](#running-the-truthfulqa-benchmark) section.
+
+### Prerequisites
+
+- Python 3.7 or higher
+- An OpenAI API key with access to fine-tuning capabilities
+- Necessary Python packages:
+  - `openai`
+  - `pandas`
+  - `datasets`
+  - `tqdm`
+- Git (for cloning repositories)
+
+### Downloading the Data
+
+1. **Clone the TruthfulQA Repository:**
+
+   ```bash
+   git clone https://github.com/sylinrl/TruthfulQA.git
+   ```
+
+2. **Navigate to the Data Directory:**
+
+   ```bash
+   cd TruthfulQA/data
+   ```
+
+3. **Locate the Fine-tuning Data:**
+
+   The fine-tuning data is provided in `finetune_truth.jsonl`. This file contains labeled examples for fine-tuning the judge model.
+
+   Alternatively, you can download the file directly:
+
+   ```bash
+   wget https://raw.githubusercontent.com/sylinrl/TruthfulQA/main/data/finetune_truth.jsonl
+   ```
+
+### Fine-tuning the Judge Model
+
+We will fine-tune a GPT-based model (e.g., `gpt-3.5-turbo`) using the OpenAI API to create a judge model that can evaluate the truthfulness of answers.
+
+#### 1. Prepare the Dataset
+
+The fine-tuning dataset `finetune_truth.jsonl` is in JSON Lines format, where each line is a JSON object with the following structure:
+
+```json
+{
+  "prompt": "Q: <question>\nA: <answer>\nTrue:",
+  "completion": "<yes or no>"
+}
+```
+
+Example:
+
+```json
+{
+  "prompt": "Q: What is the capital of France?\nA: Paris.\nTrue:",
+  "completion": "yes"
+}
+```
+
+Ensure that the dataset is properly formatted and stored in a file accessible for fine-tuning.
+
+#### 2. Fine-tune the Model with OpenAI API
+
+Please refer to the official OpenAI fine-tuning guide for detailed instructions on how to fine-tune a model: [OpenAI Fine-tuning Guide](https://platform.openai.com/docs/guides/fine-tuning)
+
+**Note:** Fine-tuning capabilities are subject to OpenAI's policies and may require access approval. Be sure to comply with OpenAI's policies and monitor your usage in the OpenAI dashboard.
+
+After fine-tuning is complete, you will receive a fine-tuned model name (e.g., `ft:gpt-3.5-turbo:your-org:2023-11-26-15-30-00`). Use this model as the `--judge_model` when running the TruthfulQA benchmark as described in the [Running the TruthfulQA Benchmark](#running-the-truthfulqa-benchmark) section.
+
+### References
+
+- **TruthfulQA Repository:** [https://github.com/sylinrl/TruthfulQA](https://github.com/sylinrl/TruthfulQA)
+- **OpenAI Fine-tuning Guide:** [https://platform.openai.com/docs/guides/fine-tuning](https://platform.openai.com/docs/guides/fine-tuning)
+- **OpenAI API Reference:** [https://platform.openai.com/docs/api-reference/introduction](https://platform.openai.com/docs/api-reference/introduction)
+
+
+## Supplementary: Obtaining Data and Evaluating the FactualityPrompt Benchmark
+
+### Step 1: Clone the FactualityPrompt Repository
+
+First, clone the official FactualityPrompt repository to access the dataset and evaluation scripts:
+
+```bash
+git clone https://github.com/nayeon7lee/FactualityPrompt.git
+```
+
+### Step 2: Obtain the Dataset
+
+The FactualityPrompt dataset includes the following JSONL files:
+
+- `fever_factual.jsonl`
+- `fever_nonfactual.jsonl`
+
+These datasets are located in the `prompts` directory of the cloned repository.
+
+Navigate to the `prompts` directory:
+
+```bash
+cd FactualityPrompt/prompts
+```
+
+### Step 3: Copy the Dataset Files to Your Project
+
+Copy the JSONL files to your project's data directory, such as `evaluation/data`:
+
+```bash
+mkdir -p /path/to/your/project/evaluation/data
+cp fever_factual.jsonl /path/to/your/project/evaluation/data/
+cp fever_nonfactual.jsonl /path/to/your/project/evaluation/data/
+```
+
+Replace `/path/to/your/project/` with the actual path to your project's root directory.
+
+### Evaluating the Results
+
+After generating responses using your model, you can evaluate the results using the FactualityPrompt evaluation scripts provided in the repository you cloned earlier.
+
+#### Step 1: Install Required Dependencies
+
+Navigate to the root directory of the cloned FactualityPrompt repository:
+
+```bash
+cd /path/to/FactualityPrompt
+```
+
+Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+#### Step 2: Download and Prepare the Wikipedia Dump
+
+The evaluation script requires access to a processed Wikipedia dump. Download the `kilt_knowledgesource.json` file from the KILT repository:
+
+```bash
+mkdir data
+cd data
+wget http://dl.fbaipublicfiles.com/KILT/kilt_knowledgesource.json
+```
+
+Create the database file (`kilt_db.db`) from the Wikipedia dump:
+
+```bash
+cd ..
+PYTHONPATH=fever_athene python3 fever_athene/scripts/build_db_kilt.py data/kilt_knowledgesource.json data/kilt_db.db
+```
+
+#### Step 3: Configure `src/const.py`
+
+Before running the evaluation scripts, configure the `const.py` file located in the `src` directory:
+
+```bash
+nano src/const.py
+```
+
+Update the paths in `const.py` to match your environment:
+
+- `DB_PATH`: Set this to the path of the `kilt_db.db` file you just created (e.g., `data/kilt_db.db`).
+- `DATA_PATH`: Ensure it points to the directory containing your data (e.g., `data/`).
+
+Save and exit the editor.
+
+#### Step 4: Run the Evaluation Scripts
+
+##### Factuality Metrics (Hallucinated Named Entity Error, Entailment Ratio)
+
+Run the evaluation script to compute the factuality metrics:
+
+```bash
+for PROMPT_TYPE in factual nonfactual
+do
+    GEN_TO_EVALUATE_NAME=${PROMPT_TYPE}-CUSTOM-GEN-NAME.jsonl
+    PYTHONPATH=. python src/evaluate_v3_final.py --prompt_type ${PROMPT_TYPE} --gen_path ${GEN_TO_EVALUATE_NAME}
+done
+```
+
+- Replace `CUSTOM-GEN-NAME` with the actual name of your generated file (without the prompt type prefix).
+- This script will process both factual and non-factual prompts.
+- The evaluation results will be saved in a file named `${GEN_TO_EVALUATE_NAME}_results.jsonl`.
+
+**Example:**
+
+If your generated file is named `factual-FactualityPrompt_MEP_3experts_mistral.jsonl`, run:
+
+```bash
+PROMPT_TYPE=factual
+GEN_TO_EVALUATE_NAME=factual-FactualityPrompt_MEP_3experts_mistral.jsonl
+PYTHONPATH=. python src/evaluate_v3_final.py --prompt_type $PROMPT_TYPE --gen_path $GEN_TO_EVALUATE_NAME
+```
+
+### References
+
+- **FactualityPrompt Repository**: [https://github.com/nayeon7lee/FactualityPrompt](https://github.com/nayeon7lee/FactualityPrompt)
+- **FEVER Dataset**: [https://fever.ai/](https://fever.ai/)
+- **KILT Knowledge Source**: [https://github.com/facebookresearch/KILT](https://github.com/facebookresearch/KILT)
+- **UKPLab FEVER Pipeline**: [https://github.com/UKPLab/fever-2018-team-athene](https://github.com/UKPLab/fever-2018-team-athene)
