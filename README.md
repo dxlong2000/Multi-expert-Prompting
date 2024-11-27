@@ -112,7 +112,7 @@ To evaluate factual correctness using the FactualityPrompt benchmark:
     python evaluation/benchmark/factualityprompt.py \
       --model [model] \
       --num_experts 3 \
-      --prompt_type factual_250 \
+      --data_file [your path to json data file] \
       --api_token [your-api-key] \
       --verbose
     ```
